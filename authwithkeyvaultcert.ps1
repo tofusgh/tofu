@@ -1,4 +1,4 @@
-#This is a sample script that downloads a Key Vault Certificate locally to use for authentication with a service principal to Azure
+#This is a sample script that downloads a Key Vault Certificate locally to use for authentication to Azure with a service principal
 
 Connect-AzAccount
 
