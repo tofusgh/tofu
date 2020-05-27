@@ -16,10 +16,9 @@ $protectedCertificateBytes = $certCollection.Export([System.Security.Cryptograph
 $pfxPath = $exportPath.TrimEnd("\") + "\$($certificateName).pfx"
 [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
 
-#once downloading the cert to your local store you can script getting the thumbprint or simply insert it below
-$certthumb = "Insertcertthumbprint"
-$tenantid = "TenantID"
-$appid = "AppIDforSP"  
+$certthumb = "insertcertthumbprint"
+$tenantid = "tenantID"
+$appid = "AppIdforSP"  
 
 #authenticating with appid, tenantid, and cert.thumbprint
 Connect-AzAccount -ApplicationId $appId -Tenant $tenantId -CertificateThumbprint $certthumb
