@@ -1,6 +1,6 @@
 {
  "properties": {
-  "displayName": "wbatestpolicy2",
+  "displayName": "testpolicy2",
   "policyType": "Custom",
   "mode": "Indexed",
   "metadata": {
@@ -14,23 +14,23 @@
    "if": {
     "allOf": [
      {
-      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'AHDL', 'SubDivision', 'Pharmaceutical Wholesale', 'Department', 'AHUK IT', 'CostCenter', '99204')))]",
+      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'tagValue1', 'SubDivision', 'tagValue2', 'Department', 'tagValue3', 'CostCenter', 'tagValue4')))]",
       "notEquals": 4
      },
      {
-      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'Alloga-UK', 'SubDivision', 'Pharmaceutical Wholesale', 'Department', 'Alloga-UK HR', 'CostCenter', '83510')))]",
+      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'tagValue1, 'SubDivision', 'tagValue2', 'Department', 'tagValue3', 'CostCenter', 'tagValue4')))]",
       "notEquals": 4
      },
      {
-      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'Alloga-UK', 'SubDivision', 'Pharmaceutical Wholesale', 'Department', 'Alloga-UK IT', 'CostCenter', '83510')))]",
+      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'tagValue1', 'SubDivision', 'tagValue2', 'Department', 'tagValue3', 'CostCenter', 'tagValue4')))]",
       "notEquals": 4
      },
      {
-      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'Alloga-UK', 'SubDivision', 'Pharmaceutical Wholesale', 'Department', 'Alloga-UK Operations', 'CostCenter', '83510')))]",
+      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'tagValue1', 'SubDivision', 'tagValue2', 'Department', 'tagValue3', 'CostCenter', 'tagValue4')))]",
       "notEquals": 4
      },
      {
-      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'Alloga-UK', 'SubDivision', 'Pharmaceutical Wholesale', 'Department', 'Alloga-UK Services', 'CostCenter', '83510')))]",
+      "value": "[length(intersection(if(equals(length(field('tags')), 0), createObject(), field('tags')), createObject('LegalSubEntity', 'tagValue1', 'SubDivision', 'tagValue2', 'Department', 'tagValue3', 'CostCenter', 'tagValue4')))]",
       "notEquals": 4
      }
     ]
@@ -40,7 +40,7 @@
    }
   }
  },
- "id": "/subscriptions/4169b7ce-81a7-4877-907e-02b3d4e87828/providers/Microsoft.Authorization/policyDefinitions/2293de47-847f-4389-a573-f9b1c86ecae8",
+ "id": "/subscriptions/*/providers/Microsoft.Authorization/policyDefinitions/2293de47-847f-4389-a573-f9b1c86ecae8",
  "type": "Microsoft.Authorization/policyDefinitions",
  "name": "2293de47-847f-4389-a573-f9b1c86ecae8"
 }
