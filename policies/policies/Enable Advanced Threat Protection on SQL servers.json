@@ -1,0 +1,125 @@
+{
+  "properties": {
+    "displayName": "Enable Advanced Threat Protection on SQL servers",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "description": "Transparent data encryption should be enabled to protect data-at-rest and meet compliance requirements.",
+    "metadata": {
+      "category": "SQL",
+      "createdBy": "b0f864a1-d230-44aa-8c65-77da5df77a3f",
+      "createdOn": "2022-03-25T12:35:00.7915351Z",
+      "updatedBy": null,
+      "updatedOn": null
+    },
+    "parameters": {
+      "ringValue": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "ringValue",
+          "description": "The list of tags that can be specified when deploying resources."
+        },
+        "allowedValues": [
+          "r0",
+          "r1",
+          "r2",
+          "r3"
+        ],
+        "defaultValue": [
+          "r0"
+        ]
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "value": "[resourceGroup().tags['ringValue']]",
+            "in": "[parameters('ringValue')]"
+          },
+          {
+            "field": "type",
+            "equals": "Microsoft.Sql/servers"
+          },
+          {
+            "field": "kind",
+            "notContains": "analytics"
+          }
+        ]
+      },
+      "then": {
+        "effect": "DeployIfNotExists",
+        "details": {
+          "type": "Microsoft.Sql/servers/securityAlertPolicies",
+          "name": "Default",
+          "existenceCondition": {
+            "allOf": [
+              {
+                "field": "Microsoft.Sql/securityAlertPolicies.state",
+                "equals": "Enabled"
+              },
+              {
+                "anyOf": [
+                  {
+                    "field": "Microsoft.Sql/securityAlertPolicies.disabledAlerts",
+                    "exists": "false"
+                  },
+                  {
+                    "count": {
+                      "field": "Microsoft.Sql/servers/securityAlertPolicies/disabledAlerts[*]",
+                      "where": {
+                        "field": "Microsoft.Sql/servers/securityAlertPolicies/disabledAlerts[*]",
+                        "notEquals": ""
+                      }
+                    },
+                    "equals": 0
+                  }
+                ]
+              },
+              {
+                "field": "Microsoft.Sql/securityAlertPolicies.emailAccountAdmins",
+                "equals": "true"
+              }
+            ]
+          },
+          "roleDefinitionIds": [
+            "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "serverName": {
+                    "type": "string"
+                  }
+                },
+                "variables": {},
+                "resources": [
+                  {
+                    "name": "[concat(parameters('serverName'), '/Default')]",
+                    "type": "Microsoft.Sql/servers/securityAlertPolicies",
+                    "apiVersion": "2020-11-01-preview",
+                    "properties": {
+                      "state": "Enabled",
+                      "disabledAlerts": [],
+                      "emailAccountAdmins": true
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "serverName": {
+                  "value": "[field('name')]"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    }
+}
+  
