@@ -1,0 +1,43 @@
+{
+"parameters": {
+    "effect": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Effect",
+        "description": "Enable or disable the execution of the policy"
+      },
+      "allowedValues": [
+        "Deny",
+        "Disabled"
+      ],
+      "defaultValue": "Deny"
+    }
+  },
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "equals": "Microsoft.Authorization/roleAssignments"
+        },
+        {
+          "not": {
+            "anyOf": [
+              {
+                "field": "Microsoft.Authorization/roleAssignments/principalType",
+                "equals": "Group"
+              },
+              {
+                "field": "Microsoft.Authorization/roleAssignments/principalType",
+                "equals": "ServicePrincipal"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "then": {
+      "effect": "[parameters('effect')]"
+    }
+  }
+}
